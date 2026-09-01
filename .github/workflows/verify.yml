@@ -1,0 +1,20 @@
+name: verify
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate governance contract
+        run: python3 -m json.tool OPENWORKER_T4H_CONTRACT.json >/dev/null
+      - name: Validate preflight adapter
+        run: python3 -m py_compile scripts/openworker-t4h-preflight.py
+      - name: Validate installer syntax
+        run: bash -n scripts/install-openworker-macos-arm64.sh
+      - name: Verify pinned upstream digest
+        run: |
+          test "7d9dbb9af9da61029f98260bf46efd7432e2ef1dc8727a5c24deb5f4568c9067" = "$(curl -fsSL https://github.com/andrewyng/openworker/releases/download/v0.2.1/OpenWorker-macos-arm64.app.tar.gz | sha256sum | awk '{print $1}')"
