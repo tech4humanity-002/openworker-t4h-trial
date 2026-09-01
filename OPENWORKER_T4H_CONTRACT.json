@@ -1,0 +1,54 @@
+{
+  "schema": "t4h.openworker.integration.v1",
+  "status": "PARTIAL",
+  "upstream": {
+    "repository": "andrewyng/openworker",
+    "version": "v0.2.1",
+    "role": "local execution harness"
+  },
+  "t4h": {
+    "control_plane": "tech4humanity-002/t4h-remote-mcp-server-clean",
+    "receipt_rule": "no receipt = not REAL",
+    "telemetry_rule": "unobserved change = not REAL",
+    "authority_rule": "no present authority = BLOCKED",
+    "memory_rule": "advisory only; runtime wins"
+  },
+  "execution_contract": {
+    "preflight": [
+      "resolve task identity",
+      "resolve owner and authority",
+      "resolve dependency state",
+      "verify current evidence is fresh enough",
+      "classify action risk"
+    ],
+    "during_execution": [
+      "record tool/action events",
+      "do not widen permissions",
+      "re-check authority before consequential action",
+      "preserve stdout/stderr and changed-file evidence"
+    ],
+    "postflight": [
+      "verify intended outcome",
+      "verify repository/system state",
+      "write immutable receipt",
+      "classify REAL/PARTIAL/BLOCKED/DEGRADED/QUARANTINED",
+      "publish receipt to the control plane"
+    ]
+  },
+  "human_gates": [
+    "destructive production action",
+    "credential or secret exposure",
+    "authority ambiguity",
+    "legal or safety boundary",
+    "irreversible external communication"
+  ],
+  "acceptance": {
+    "required": [
+      "real_openworker_install",
+      "real_task_execution",
+      "real_t4h_receipt",
+      "real_verification",
+      "replayable_evidence"
+    ]
+  }
+}
