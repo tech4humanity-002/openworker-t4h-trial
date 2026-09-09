@@ -1,0 +1,17 @@
+{
+  "qualification_id": "T4H-QUAL-OPENWORKER-001",
+  "base_upstream_commit": "01b6f83b3927e02912dda84bb392942c13ca70d1",
+  "authority_mode": "QUALIFICATION_TRIAL_ONLY",
+  "controls": {
+    "unified_orchestrator": true,
+    "gatekeeper_enforced": true,
+    "reality_ledger_enabled": true,
+    "unattended_shell_allowed": false,
+    "external_write_idempotency": true
+  },
+  "known_risks_mitigated": [
+    "Issue #443: Crash replay prevented by pre-execution ledger lock",
+    "Issue #296: Unattended shell execution strictly denied by Gatekeeper",
+    "Issue #35: TOCTOU mitigated by atomic SQLite transactions"
+  ]
+}
