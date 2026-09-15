@@ -1,3 +1,6 @@
 .venv/
 t4h_reality_ledger.db
 test_e2e_ledger.db
+.DS_Store
+__pycache__/
+*.pyc
